@@ -1,0 +1,26 @@
+.App {
+  min-height: 0vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Images{
+  min-height: 100vh;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+.Image{
+  width:500px;
+  height: 500px;
+  background:orange;
+  border-radius:50px;
+  text-align: center;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
+  
+}
