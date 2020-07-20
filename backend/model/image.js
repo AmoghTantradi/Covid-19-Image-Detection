@@ -25,6 +25,11 @@ const imageSchema = mongoose.Schema({
     type:String,
     required: true
   }
+  ,
+  prediction:{
+    type:String,
+    required: true
+  }
 
 
 

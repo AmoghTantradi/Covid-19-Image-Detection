@@ -1,3 +1,5 @@
+
+
 const util = require('util')
 
 const multer = require('multer')
@@ -39,15 +41,15 @@ fileFilter: fileFilter
 
 
 //uploads a post
+router.post('/',upload.single('image'),  async (req,res,next) =>{
 
-router.post('/',upload.single('image'), (req,res,next) =>{
-
-
+ 
   const image = new Image({
 
     caption:req.body.caption,
     description: req.body.description,
-    image: req.file.path
+    image: req.file.path,
+    prediction: req.body.prediction
 
 
   })
@@ -91,3 +93,4 @@ router.get('/:postId',async (req,res)=>{
 
 
 module.exports = router
+
