@@ -153,6 +153,7 @@ export default class InputImage extends React.Component{
                 className="form-control"
                 value={this.state.caption}
                 onChange={this.onChangeCaption}
+                placeholder="Please enter a caption for your image"
                 />
 
           </div>    
@@ -163,6 +164,7 @@ export default class InputImage extends React.Component{
                 className="form-control"
                 value={this.state.description}
                 onChange={this.onChangeDescription}
+                placeholder="Please enter a description of your image"
                 />
  
           </div>
