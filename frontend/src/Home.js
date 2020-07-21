@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './Navbar'
+import Header from './Header'
 
 function Home(props){
 
@@ -7,7 +7,7 @@ function Home(props){
   return(
     <div>
 
-      <Navbar/>
+      <Header/>
 
 
 
