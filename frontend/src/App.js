@@ -12,18 +12,23 @@ function App() {
     <Router>
 
       <div className="App">
+
       
+        
         <Switch>
 
-        <Route path = "/" exact component={Home} />
+       
         
+        <Route path = "/" exact component={Home} />
         <Route path="/add" exact component={InputImage} />
         
         
         </Switch>
+        
       </div>
 
     </Router>
+    
   )
 }
 

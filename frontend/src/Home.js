@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './Header'
-
+import Footer from './Footer'
 function Home(props){
 
 
@@ -9,7 +9,7 @@ function Home(props){
 
       <Header/>
 
-
+      <Footer link={"add"}/>
 
     </div>
   )

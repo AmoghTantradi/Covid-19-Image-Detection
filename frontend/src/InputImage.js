@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import * as tf from '@tensorflow/tfjs';
-
-
+import Header from './Header'
+import Footer from './Footer'
 
 
 
@@ -16,10 +16,7 @@ export default class InputImage extends React.Component{
     this.onChangeDescription = this.onChangeDescription.bind(this)
     this.onChangeImage = this.onChangeImage.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-
-
-
-
+    this.resetForm = this.resetForm.bind(this)
 
     this.state = {
       caption:''
@@ -73,19 +70,42 @@ export default class InputImage extends React.Component{
       reader.readAsDataURL(file)
   }
   else{
-    let imgComp = document.querySelector("#image")
+    const  imgComp = document.querySelector("#image")
     imgComp.removeAttribute("src")
   }
   }
 
-  refresh(){
-    window.location = '/add'
+  resetForm(e){
+
+    this.setState({
+      caption:''
+      ,
+      description:''
+      ,
+      date:Date.now
+      ,
+      image:null
+      ,
+      prediction:''
+
+    })
+
+    //removes the preview/image
+    const img = document.getElementById("image")
+    img.setAttribute("src","")
+
+    const predictions = document.getElementById("predictions")
+    predictions.innerHTML = ''
+    console.log(this.state)
+
+    
+    
   }
 
 
 
   async onSubmit(e){
-    e.preventDefault()
+   e.preventDefault()
 
    const model =  await tf.loadLayersModel('http://localhost:81/model/model.json')
    
@@ -138,14 +158,21 @@ export default class InputImage extends React.Component{
    axios.post('http://localhost:3002/images',formdata)
       .then(res=>console.log(res.data))
 
+
   }
+
 
   
   render(){
+
+
     return(
+
+      
       
       <div>
-        <form onSubmit = {this.onSubmit}>
+        <Header/>
+        <form onSubmit = {this.onSubmit} >
           <div className="form-group">
             <label>Caption:</label>
             <input type="text"
@@ -153,7 +180,7 @@ export default class InputImage extends React.Component{
                 className="form-control"
                 value={this.state.caption}
                 onChange={this.onChangeCaption}
-                placeholder="Please enter a caption for your image"
+                placeholder="Please enter a caption for your PAN X-ray"
                 />
 
           </div>    
@@ -164,14 +191,14 @@ export default class InputImage extends React.Component{
                 className="form-control"
                 value={this.state.description}
                 onChange={this.onChangeDescription}
-                placeholder="Please enter a description of your image"
+                placeholder="Please enter a description of your PAN X-ray"
                 />
  
           </div>
 
           <div className="form-group">
            
-            <input type="file" 
+            <input type="file"
               required
               onChange={this.onChangeImage}
               />
@@ -183,10 +210,10 @@ export default class InputImage extends React.Component{
           </div>
 
           <div className = "form-group">
-            <input type="submit" value= "Clear Form" className = "btn btn-secondary"
-            onClick = {this.refresh}
+            <input type="reset" value= "Clear Form" className = "btn btn-secondary"
+            onClick= {this.resetForm}
             />         
-            </div>
+          </div>
 
 
         </form>
@@ -195,7 +222,7 @@ export default class InputImage extends React.Component{
           <img id="image" className="ml3" src="" alt ="" />
     <h1 id="predictions">{""}</h1>
         </div>
-        
+        <Footer link={""}/>
       </div>
       
     )
