@@ -49,27 +49,33 @@ export default class InputImage extends React.Component{
 
   onChangeImage(e){
 
-    const reader = new FileReader()
+    if(e.target.files[0] !== undefined){
 
-    reader.onload = ()=>{
-      let dataURL= reader.result
-      let imgComp = document.querySelector("#image")
-      imgComp.setAttribute("src",dataURL)//this works
-      imgComp.setAttribute("width","300")
-      imgComp.setAttribute("height","300")
-      //formatting the witdth and height of the image
-    }
+      const reader = new FileReader()
 
-    let file = e.target.files[0]
+      reader.onload = ()=>{
+        let dataURL= reader.result
+        let imgComp = document.querySelector("#image")
+        imgComp.setAttribute("src",dataURL)//this works
+        imgComp.setAttribute("width","300")
+        imgComp.setAttribute("height","300")
+        //formatting the witdth and height of the image
+      }
 
-    this.setState({
-      image:(file)
-    })
- 
-    console.log('image',file)
- 
-    reader.readAsDataURL(file)
-   
+      let file = e.target.files[0]
+
+      this.setState({
+        image:(file)
+      })
+  
+      console.log('image',file)
+  
+      reader.readAsDataURL(file)
+  }
+  else{
+    let imgComp = document.querySelector("#image")
+    imgComp.removeAttribute("src")
+  }
   }
 
   refresh(){

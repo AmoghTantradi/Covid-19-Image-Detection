@@ -1,8 +1,10 @@
-import React from 'react';
-import Images from './Images'
+import React from 'react'
+import Home from './Home'
 import InputImage from './InputImage'
 import './App.css';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+//import Images from './Images'
+
 
 function App() {
   return (
@@ -12,9 +14,11 @@ function App() {
       <div className="App">
       
         <Switch>
+
+        <Route path = "/" exact component={Home} />
         
         <Route path="/add" exact component={InputImage} />
-        <Route path="/results" exact component={Images}/>
+        
         
         </Switch>
       </div>
