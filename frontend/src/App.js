@@ -15,7 +15,7 @@ function App() {
         
         <Route path="/add" exact component={InputImage} />
         <Route path="/results" exact component={Images}/>
-
+        
         </Switch>
       </div>
 
