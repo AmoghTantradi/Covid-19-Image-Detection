@@ -25,6 +25,8 @@ export default class Detector extends React.Component{
   onChangeImage(e){
 
     const imgComp = document.querySelector("#image")
+
+    const predictions = document.getElementById("predictions")
     
    if(e.target.files[0] !== undefined){
 
@@ -54,6 +56,7 @@ export default class Detector extends React.Component{
     }
     else{
       imgComp.removeAttribute("src")
+      predictions.innerHTML = ''
     }
 
   }
@@ -132,7 +135,7 @@ export default class Detector extends React.Component{
 
 
           <div className="form-group">
-            <input type="submit" value = "Upload Data" className = "btn btn-primary"/>
+            <input type="submit" value = "Upload PAN X-ray" className = "btn btn-primary"/>
           </div>
 
           <div className = "form-group">
