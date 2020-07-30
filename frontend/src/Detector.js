@@ -61,11 +61,10 @@ export default class Detector extends React.Component{
 
   }
 
-
   resetForm(e){
     this.setState({
       image:null
-    })
+    })//this happens after the function has ended
 
     const img = document.getElementById("image")
     img.setAttribute("src","")
