@@ -13,7 +13,7 @@ app.use((req,res, next)=>{
 
 app.use(cors())
 
-app.use(express.static('../static'))
+app.use(express.static('./static'))
 
 app.listen(PORT,()=>{
   console.log(`server started on port: ${PORT}`)
