@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 
 const app = express()
+const PORT = process.env.PORT || 81
 
 
 app.use((req,res, next)=>{
@@ -13,6 +14,6 @@ app.use(cors())
 
 app.use(express.static('../static'))
 
-app.listen(81,()=>{
-  console.log('server started on port 81')
+app.listen(PORT,()=>{
+  console.log(`server started on port: ${PORT}`)
 })
