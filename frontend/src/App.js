@@ -1,33 +1,30 @@
 import React from 'react'
-import Home from './Home'
-import './App.css';
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Detector from './Detector';
-//import Images from './Images'
 
+import './App.css';
+import Detector from './Detector';
+import Popup from './Popup'
+
+
+
+//import Images from './Images'
+/*import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'*/
 
 function App() {
-  return (
 
-    <Router>
+  //<Route path= "" exact component={}/>
+
+  return (
 
       <div className="App">
 
-      
-        
-        <Switch>
 
-       
-        
-        <Route path = "/" exact component={Home} />
-        <Route path="/add" exact component={Detector} />
-        
-        
-        </Switch>
-        
+      <Popup/>
+
+      <Detector/>
+
       </div>
 
-    </Router>
+
     
   )
 }
