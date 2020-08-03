@@ -33,7 +33,7 @@ function Popup(props){
         
         <p>There are no guarentees that the detector will correctly identify whether or not you have Covid-19.</p>
 
-        <p>By using this application, you acknowledge that you will neither take legal action against me nor accuse me of misdiagnosing you.
+        <p>By using this application, you alleviate me, Amogh Tantradi, of all legal liabilities.
         </p>
       </Modal.Body>
       <Modal.Footer>
