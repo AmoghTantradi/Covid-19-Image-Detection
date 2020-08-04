@@ -127,6 +127,7 @@ export default class Detector extends React.Component{
             
             <input type="file"
               required
+              accept=".jpeg,.jpg,.png"
               onChange={this.onChangeImage}
               />
 
