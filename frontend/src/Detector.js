@@ -78,7 +78,7 @@ export default class Detector extends React.Component{
 
     e.preventDefault()
 
-    const model =  await tf.loadLayersModel('http://localhost:81/model/model.json')//making api call to get the model served by REST API
+    const model =  await tf.loadLayersModel('http://localhost:5000/model/model.json')//making api call to get the model served by REST API
    
     
     console.log('loaded model')
