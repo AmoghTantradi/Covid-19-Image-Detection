@@ -130,6 +130,7 @@ export default class Detector extends React.Component{
     console.log('outputs of each layer in my model (starting from index 0 (from the first layer of my model)', input)
 
     let lastLayerIndex = model.layers.length - 1;
+    
     while (lastLayerIndex >= 0) {
       if (model.layers[lastLayerIndex].getClassName().startsWith('Conv')) {
         break;
