@@ -174,7 +174,7 @@ If we wanted to plot all sections of the class activation map, we would do
     for(let i = 0 ; i < lastLayerOutput.shape[3];i++){
       const img = tf.reverse2d(lastLayerList[0])
       drawconv_map(Array.from(img.dataSync()),'tc_'+i,lastLayerOutput.shape[1],lastLayerOutput.shape[2],300,300)
-
+    }
     to plot the cam using plotly.js, we have to have a div with an id that is the name of the graph node in plotly
 */
   }
