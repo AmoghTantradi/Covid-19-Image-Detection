@@ -22,7 +22,7 @@ export function drawconv_map(x,elements_name,reshape_x,reshape_y,width_plot,heig
   
  // x.reshape(reshape_x,reshape_y);
 	x = reshape(x,reshape_x,reshape_y)
-  var data = [
+  const data = [
   {
     z: x,
     type: 'heatmap',
@@ -34,7 +34,7 @@ export function drawconv_map(x,elements_name,reshape_x,reshape_y,width_plot,heig
   }
   ];
 
-  var layout = {
+  const layout = {
     autosize: false,
     width: width_plot,
     height: height_plot,
