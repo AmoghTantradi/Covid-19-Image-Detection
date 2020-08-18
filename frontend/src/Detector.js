@@ -1,5 +1,6 @@
 import React from 'react'
 import * as tf from '@tensorflow/tfjs'
+import {Cam,drawconv_map,destroyPlot} from './Cam'
 import Header from './Header'
 import Footer from './Footer'
 
@@ -14,10 +15,10 @@ export default class Detector extends React.Component{
     this.onChangeImage = this.onChangeImage.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.resetForm = this.resetForm.bind(this)
+   
 
     this.state = {
-      image:null
-
+      image:null,
     }
 
   }
@@ -57,8 +58,9 @@ export default class Detector extends React.Component{
     else{
       imgComp.removeAttribute("src")
       predictions.innerHTML = ''
+      destroyPlot('tc_0')//clears cam
     }
-
+ 
   }
 
   resetForm(e){
@@ -67,11 +69,16 @@ export default class Detector extends React.Component{
     })//this happens after the function has ended
 
     const img = document.getElementById("image")
-    img.setAttribute("src","")
+    img.setAttribute("src","") //clears uploaded image
 
     const predictions = document.getElementById("predictions")
-    predictions.innerHTML = ''
+    predictions.innerHTML = '' //clears predictions
+
+    destroyPlot('tc_0')//clears cam
+
     console.log(this.state)
+
+    
   }
 
   async onSubmit(e){
@@ -93,24 +100,82 @@ export default class Detector extends React.Component{
 
     console.log('image',image)
 
+  
     const tensor =  tf.browser.fromPixels(image)
          .resizeNearestNeighbor([224,224])
          .toFloat()
          .expandDims()
+         //preprocessing the image into a tensor of rank 4
+
+    let  input = []
+
+    console.log('Layers of my model',model.layers)
+
+    console.log('input',input)
     
 
-    const predictions = await model.predict(tensor).data()
+    for(let i = 0; i < model.layers.length;i++){
 
-    console.log(predictions)
+      if(i === 0 ){
+        input.push(model.layers[i].apply(tensor))
+      }
+      else{
+      input.push(model.layers[i].apply(input[i-1]))
+      }
+        
+    }
+    //this will store the output of each ith layer
 
+
+    console.log('outputs of each layer in my model (starting from index 0 (from the first layer of my model)', input)
+
+    let lastLayerIndex = model.layers.length - 1;
+    while (lastLayerIndex >= 0) {
+      if (model.layers[lastLayerIndex].getClassName().startsWith('Conv')) {
+        break;
+      }
+      lastLayerIndex--;
+    }
+    //finding the last layer 
+
+    //finding and declaring the lastlayer(before the output layer)
+    const lastLayer = model.layers[lastLayerIndex]
+    const lastLayerOutput = input[lastLayerIndex]
+
+    //finding the predictions/final output
+    const predictions = input[input.length-1].data()
     const predictValue = (predictions[0]===0)?'Covid case':'Not a Covid case'
-
-    
-
     predictComp.innerHTML = predictValue
 
+    console.log('last conv layer:',lastLayer,'last conv layer output',lastLayerOutput)
+
+    //converting the rank 4 tensor into a rank 3 tensor
+    const lastLayerList = tf.tidy(()=>{
+      return tf.unstack(lastLayerOutput.reshape([lastLayerOutput.shape[1],lastLayerOutput.shape[2],lastLayerOutput.shape[3]]),2)
+    }
+    )
+    
+    console.log('last conv list',lastLayerList)
 
 
+    //plotting one slice of the class activation map
+    const img = tf.reverse2d(lastLayerList[0])
+    drawconv_map(Array.from(img.dataSync()),"tc_"+0,lastLayerOutput.shape[1],lastLayerOutput.shape[2],300,300)
+    img.dispose()
+    
+ 
+    
+
+/*
+
+If we wanted to plot all sections of the class activation map, we would do
+
+    for(let i = 0 ; i < lastLayerOutput.shape[3];i++){
+      const img = tf.reverse2d(lastLayerList[0])
+      drawconv_map(Array.from(img.dataSync()),'tc_'+i,lastLayerOutput.shape[1],lastLayerOutput.shape[2],300,300)
+
+    to plot the cam using plotly.js, we have to have a div with an id that is the name of the graph node in plotly
+*/
   }
 
   render(){
@@ -152,18 +217,16 @@ export default class Detector extends React.Component{
           <img id="image" className="ml3" src="" alt ="" />
           <h1 id="predictions">{""}</h1>
 
+         
         </div>
+
+        <Cam/>
 
         <Footer link={""} />
 
-      </div>
+        </div>
+
     )
   }
-
-
-
-
-
-
 
 }
