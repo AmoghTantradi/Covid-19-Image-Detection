@@ -5,10 +5,10 @@ const reshape = (x,rows,cols)=>{
 	let copy = x
 	let ret = []
 
-	for (var r = 0; r < rows; r++) {
-    var row = [];
-    for (var c = 0; c < cols; c++) {
-      var i = r * cols + c;
+	for (let r = 0; r < rows; r++) {
+    let row = [];
+    for (let c = 0; c < cols; c++) {
+      let i = r * cols + c;
       if (i < copy.length) {
         row.push(copy[i]);
       }
