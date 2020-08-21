@@ -160,7 +160,7 @@ export default class Detector extends React.Component{
 
 
     //plotting one slice of the class activation map
-    const img = tf.reverse2d(lastLayerList[0])
+    const img = tf.reverse2d(tf.reverse2d(lastLayerList[0],1))
     drawconv_map(Array.from(img.dataSync()),"tc_"+0,lastLayerOutput.shape[1],lastLayerOutput.shape[2],300,300)
     img.dispose()
     
