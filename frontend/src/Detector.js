@@ -144,7 +144,7 @@ export default class Detector extends React.Component{
     const lastLayerOutput = input[lastLayerIndex]
 
     //finding the predictions/final output
-    const predictions = input[input.length-1].data()
+    const predictions = await input[input.length-1].data()
     const predictValue = (predictions[0]===0)?'Covid case':'Not a Covid case'
     predictComp.innerHTML = predictValue
 
