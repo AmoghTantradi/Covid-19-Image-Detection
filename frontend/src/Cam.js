@@ -2,15 +2,15 @@ import React from 'react'
 import * as plotly from 'plotly.js'
 
 const reshape = (x,rows,cols)=>{
-	let copy = x
+	let cpy = x
 	let ret = []
 
 	for (let r = 0; r < rows; r++) {
     let row = [];
     for (let c = 0; c < cols; c++) {
       let i = r * cols + c;
-      if (i < copy.length) {
-        row.push(copy[i]);
+      if (i < cpy.length) {
+        row.push(cpy[i]);
       }
     }
     ret.push(row);
