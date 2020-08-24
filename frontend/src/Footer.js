@@ -3,7 +3,7 @@ import React from 'react'
 function Footer({link}){
 
   return (
-    <div>
+    <div style={{clear:'both'}} >
       
 <footer className="page-footer font-small blue">
 

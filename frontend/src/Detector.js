@@ -213,15 +213,17 @@ If we wanted to plot all sections of the class activation map, we would do
 
         </form>
 
-        <div >
+        <div  style={{float:'left'}} >
 
-          <img id="image" className="ml3" src="" alt ="" />
+
           <h1 id="predictions">{""}</h1>
+          <img id="image" className="ml3" src="" alt =""/> 
+          
 
          
         </div>
 
-        <Cam/>
+        <Cam />
 
         <Footer link={""} />
 

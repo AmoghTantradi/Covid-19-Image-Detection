@@ -62,7 +62,7 @@ export function destroyPlot(name){
 
 export function Cam(props){
   return (
-    <div id="components">
+    <div id="components" style={{float:'right'}}>
 	  
 		<div className="pure-u-1-32" id = "tc_0"></div>
 		
