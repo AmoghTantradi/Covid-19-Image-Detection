@@ -15,12 +15,21 @@ export default class Detector extends React.Component{
     this.onChangeImage = this.onChangeImage.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.resetForm = this.resetForm.bind(this)
-   
+    
+    this.model = null
+  
 
     this.state = {
       image:null,
     }
 
+    this.init()
+
+  }
+
+  async init(){
+    this.model = await tf.loadLayersModel('http://localhost:4000/model/model.json')//making api call to get the model served by REST API
+    console.log('loaded model', this.model)
   }
 
   onChangeImage(e){
@@ -85,10 +94,6 @@ export default class Detector extends React.Component{
 
     e.preventDefault()
 
-    const model =  await tf.loadLayersModel('http://localhost:4000/model/model.json')//making api call to get the model served by REST API
-   
-    
-    console.log('loaded model')
 
     const image = new Image()
 
@@ -109,18 +114,18 @@ export default class Detector extends React.Component{
 
     let  input = []
 
-    console.log('Layers of my model',model.layers)
+    console.log('Layers of my model',this.model.layers)
 
     console.log('input',input)
     
 
-    for(let i = 0; i < model.layers.length;i++){
+    for(let i = 0; i < this.model.layers.length;i++){
 
       if(i === 0 ){
-        input.push(model.layers[i].apply(tensor))
+        input.push(this.model.layers[i].apply(tensor))
       }
       else{
-      input.push(model.layers[i].apply(input[i-1]))
+      input.push(this.model.layers[i].apply(input[i-1]))
       }
         
     }
@@ -129,10 +134,10 @@ export default class Detector extends React.Component{
 
     console.log('outputs of each layer in my model (starting from index 0 (from the first layer of my model)', input)
 
-    let lastLayerIndex = model.layers.length - 1;
+    let lastLayerIndex = this.model.layers.length - 1;
     
     while (lastLayerIndex >= 0) {
-      if (model.layers[lastLayerIndex].getClassName().startsWith('Conv')) {
+      if (this.model.layers[lastLayerIndex].getClassName().startsWith('Conv')) {
         break;
       }
       lastLayerIndex--;
@@ -140,7 +145,7 @@ export default class Detector extends React.Component{
     //finding the last layer 
 
     //finding and declaring the lastlayer(before the output layer)
-    const lastLayer = model.layers[lastLayerIndex]
+    const lastLayer = this.model.layers[lastLayerIndex]
     const lastLayerOutput = input[lastLayerIndex]
 
     //finding the predictions/final output

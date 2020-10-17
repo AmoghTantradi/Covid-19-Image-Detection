@@ -1,6 +1,21 @@
 import React from 'react'
 import * as plotly from 'plotly.js'
 
+/*
+
+
+plot class activation map correctly 
+
+
+
+
+
+*/
+
+
+
+
+
 const reshape = (x,rows,cols)=>{
 	let cpy = x
 	let ret = []

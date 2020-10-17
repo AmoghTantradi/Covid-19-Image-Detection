@@ -30,3 +30,15 @@ function App() {
 }
 
 export default App;
+
+
+/*
+perform api call to browser and pass the model prop to detector.js
+
+
+
+
+
+
+
+*/
